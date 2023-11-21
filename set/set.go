@@ -27,3 +27,9 @@ func (s *Set[T]) Add(elem T) {
 	s.Data[elem] = struct{}{}
 	s.Mu.Unlock()
 }
+
+func (s *Set[T]) Remove(elem T) {
+	s.Mu.Lock()
+	delete(s.Data, elem)
+	s.Mu.Unlock()
+}
