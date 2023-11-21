@@ -21,3 +21,9 @@ func (s *Set[T]) Size() int {
 	s.Mu.Unlock()
 	return size
 }
+
+func (s *Set[T]) Add(elem T) {
+	s.Mu.Lock()
+	s.Data[elem] = struct{}{}
+	s.Mu.Unlock()
+}
