@@ -3,33 +3,33 @@ package set
 import "sync"
 
 type Set[T comparable] struct {
-	Mu   *sync.Mutex
-	Data map[T]struct{}
+	mu   *sync.Mutex
+	data map[T]struct{}
 }
 
 func New[T comparable]() *Set[T] {
 	return &Set[T]{
-		Mu:   &sync.Mutex{},
-		Data: make(map[T]struct{}),
+		mu:   &sync.Mutex{},
+		data: make(map[T]struct{}),
 	}
 }
 
 func (s *Set[T]) Size() int {
 	var size int
-	s.Mu.Lock()
-	size = len(s.Data)
-	s.Mu.Unlock()
+	s.mu.Lock()
+	size = len(s.data)
+	s.mu.Unlock()
 	return size
 }
 
 func (s *Set[T]) Add(elem T) {
-	s.Mu.Lock()
-	s.Data[elem] = struct{}{}
-	s.Mu.Unlock()
+	s.mu.Lock()
+	s.data[elem] = struct{}{}
+	s.mu.Unlock()
 }
 
 func (s *Set[T]) Remove(elem T) {
-	s.Mu.Lock()
-	delete(s.Data, elem)
-	s.Mu.Unlock()
+	s.mu.Lock()
+	delete(s.data, elem)
+	s.mu.Unlock()
 }
