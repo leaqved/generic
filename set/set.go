@@ -13,3 +13,11 @@ func New[T comparable]() *Set[T] {
 		Data: make(map[T]struct{}),
 	}
 }
+
+func (s *Set[T]) Size() int {
+	var size int
+	s.Mu.Lock()
+	size = len(s.Data)
+	s.Mu.Unlock()
+	return size
+}
