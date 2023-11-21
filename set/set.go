@@ -59,3 +59,7 @@ func (s *Set[T]) Clear() {
 	}
 	s.mu.Unlock()
 }
+
+func (s *Set[T]) IsEmpty() bool {
+	return s.Size() == 0
+}
