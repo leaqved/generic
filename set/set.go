@@ -44,6 +44,7 @@ func (s *Set[T]) Remove(elem T) {
 	s.mu.Unlock()
 }
 
+// Contains returns true if the element is represented in the Set, and false otherwise.
 func (s *Set[T]) Contains(elem T) bool {
 	var res bool
 	s.mu.Lock()
@@ -52,6 +53,7 @@ func (s *Set[T]) Contains(elem T) bool {
 	return res
 }
 
+// Clear removes all elements from the Set.
 func (s *Set[T]) Clear() {
 	s.mu.Lock()
 	for elem := range s.data {
@@ -60,6 +62,7 @@ func (s *Set[T]) Clear() {
 	s.mu.Unlock()
 }
 
+// IsEmpty returns true if there are no elements in the Set, and false otherwise.
 func (s *Set[T]) IsEmpty() bool {
 	return s.Size() == 0
 }
