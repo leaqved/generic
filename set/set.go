@@ -43,3 +43,11 @@ func (s *Set[T]) Remove(elem T) {
 	delete(s.data, elem)
 	s.mu.Unlock()
 }
+
+func (s *Set[T]) Contains(elem T) bool {
+	var res bool
+	s.mu.Lock()
+	_, res = s.data[elem]
+	s.mu.Unlock()
+	return res
+}
