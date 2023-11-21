@@ -51,3 +51,11 @@ func (s *Set[T]) Contains(elem T) bool {
 	s.mu.Unlock()
 	return res
 }
+
+func (s *Set[T]) Clear() {
+	s.mu.Lock()
+	for elem := range s.data {
+		delete(s.data, elem)
+	}
+	s.mu.Unlock()
+}
