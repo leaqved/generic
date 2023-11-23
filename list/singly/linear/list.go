@@ -6,39 +6,39 @@ import (
 )
 
 type List[T any] struct {
-	Mu     *sync.Mutex
-	Head   *s.Node[T]
-	Length int
+	mu     *sync.Mutex
+	head   *s.Node[T]
+	length int
 }
 
 func New[T any]() *List[T] {
 	return &List[T]{
-		Mu: &sync.Mutex{},
+		mu: &sync.Mutex{},
 	}
 }
 
 func (l *List[T]) Add(val T) {
-	l.Mu.Lock()
+	l.mu.Lock()
 	head := s.New[T]()
 	head.Val = val
-	head.Next = l.Head
-	l.Head = head
-	l.Length++
-	l.Mu.Unlock()
+	head.Next = l.head
+	l.head = head
+	l.length++
+	l.mu.Unlock()
 }
 
 func (l *List[T]) Remove() {
-	l.Mu.Lock()
-	head := l.Head.Next
-	l.Head = head
-	l.Length--
-	l.Mu.Unlock()
+	l.mu.Lock()
+	head := l.head.Next
+	l.head = head
+	l.length--
+	l.mu.Unlock()
 }
 
 func (l *List[T]) Len() int {
 	var len int
-	l.Mu.Lock()
-	len = l.Length
-	l.Mu.Unlock()
+	l.mu.Lock()
+	len = l.length
+	l.mu.Unlock()
 	return len
 }
