@@ -26,3 +26,11 @@ func (l *List[T]) Add(val T) {
 	l.Length++
 	l.Mu.Unlock()
 }
+
+func (l *List[T]) Remove() {
+	l.Mu.Lock()
+	head := l.Head.Next
+	l.Head = head
+	l.Length--
+	l.Mu.Unlock()
+}
