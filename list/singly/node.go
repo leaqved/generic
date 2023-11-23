@@ -3,9 +3,9 @@ package singly
 import "sync"
 
 type Node[T any] struct {
-	mu   *sync.Mutex
-	Val  T
-	Next *Node[T]
+	mu    *sync.Mutex
+	Value T
+	Next  *Node[T]
 }
 
 func New[T any]() *Node[T] {
@@ -14,9 +14,9 @@ func New[T any]() *Node[T] {
 	}
 }
 
-func (n *Node[T]) SetVal(val T) {
+func (n *Node[T]) SetValue(value T) {
 	n.mu.Lock()
-	n.Val = val
+	n.Value = value
 	n.mu.Unlock()
 }
 
@@ -26,12 +26,12 @@ func (n *Node[T]) SetNext(next *Node[T]) {
 	n.mu.Unlock()
 }
 
-func (n *Node[T]) LoadVal() T {
-	var val T
+func (n *Node[T]) LoadValue() T {
+	var value T
 	n.mu.Lock()
-	val = n.Val
+	value = n.Value
 	n.mu.Unlock()
-	return val
+	return value
 }
 
 func (n *Node[T]) LoadNext() *Node[T] {
@@ -42,11 +42,11 @@ func (n *Node[T]) LoadNext() *Node[T] {
 	return next
 }
 
-func (n *Node[T]) SwapVal(val T) T {
+func (n *Node[T]) SwapValue(value T) T {
 	n.mu.Lock()
-	val, n.Val = n.Val, val
+	value, n.Value = n.Value, value
 	n.mu.Unlock()
-	return val
+	return value
 }
 
 func (n *Node[T]) SwapNext(next *Node[T]) *Node[T] {

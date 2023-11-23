@@ -17,10 +17,10 @@ func New[T any]() *List[T] {
 	}
 }
 
-func (l *List[T]) Add(val T) {
+func (l *List[T]) Add(value T) {
 	l.mu.Lock()
 	head := s.New[T]()
-	head.Val = val
+	head.Value = value
 	head.Next = l.head
 	l.head = head
 	l.length++
