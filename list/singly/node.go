@@ -48,3 +48,10 @@ func (n *Node[T]) SwapVal(val T) T {
 	n.Mu.Unlock()
 	return val
 }
+
+func (n *Node[T]) SwapNext(next *Node[T]) *Node[T] {
+	n.Mu.Lock()
+	next, n.Next = n.Next, next
+	n.Mu.Unlock()
+	return next
+}
