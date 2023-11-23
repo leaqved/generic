@@ -25,3 +25,11 @@ func (n *Node[T]) SetNext(next *Node[T]) {
 	n.Next = next
 	n.Mu.Unlock()
 }
+
+func (n *Node[T]) LoadVal() T {
+	var val T
+	n.Mu.Lock()
+	val = n.Val
+	n.Mu.Unlock()
+	return val
+}
