@@ -34,3 +34,11 @@ func (l *List[T]) Remove() {
 	l.Length--
 	l.Mu.Unlock()
 }
+
+func (l *List[T]) Len() int {
+	var len int
+	l.Mu.Lock()
+	len = l.Length
+	l.Mu.Unlock()
+	return len
+}
