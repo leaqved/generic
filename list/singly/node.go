@@ -19,3 +19,9 @@ func (n *Node[T]) SetVal(val T) {
 	n.Val = val
 	n.Mu.Unlock()
 }
+
+func (n *Node[T]) SetNext(next *Node[T]) {
+	n.Mu.Lock()
+	n.Next = next
+	n.Mu.Unlock()
+}
