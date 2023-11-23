@@ -13,3 +13,9 @@ func New[T any]() *Node[T] {
 		Mu: &sync.Mutex{},
 	}
 }
+
+func (n *Node[T]) SetVal(val T) {
+	n.Mu.Lock()
+	n.Val = val
+	n.Mu.Unlock()
+}
